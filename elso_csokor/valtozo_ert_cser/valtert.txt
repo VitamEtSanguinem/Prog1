@@ -1,0 +1,6 @@
+//változók értékeinek felcserélése C
+
+Ehhez a feladathoz elegendő az <stdio.h> headert társítanunk forráskódunkhoz.
+Deklarálunk két integer típusú változót, majd ezeket kiíratjuk a printf() segítségével.
+A kiírás után szimpla matematikai műveletek elvégzése, majd a változók ismételt kiíratása után látjuk hogy az előszor kííratott "int a" értékét most "int b" vette fel, s ez fordítva.
+Ezzel a változó érték felcserélés feladatunk kész is.

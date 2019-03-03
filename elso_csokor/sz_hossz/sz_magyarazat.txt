@@ -1,0 +1,5 @@
+//bitshiftes szóhossz meghatározás C++
+
+
+Ehhez a feladathoz a bitshift operátort hívtam segítségül, melynek kikötöttem , hogy az adott "szó" karakterein(binárisan) egyesével lépkedjen végig, mindezt egy változóban tárolva (minden "bit-lépés"-t követően növelje az ennek tárolására létrehozott változó értékét).
+Majd a végén ezen változó értékének kiíratására kerül sor.

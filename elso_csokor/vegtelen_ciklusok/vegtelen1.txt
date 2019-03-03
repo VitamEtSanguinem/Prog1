@@ -1,0 +1,17 @@
+//c nyelvben írt végtelen ciklus
+
+
+1.) Amely egy magot 100%-osan kihasznál:
+
+		A "vegtelen_100.c" forráskód egy a while ciklusba foglalt logikai érték 		"[while(1)]" --mely a 'true' érték -- sorozatosan le fog futni egészen a program 			terminálásáig , hiszen folyamatosan igaz értéke lesz.
+
+2.) Amely egy magot 0%-osan használ ki:
+
+		Ebben az esetben a "sleep()" utasítással próbálkoztam a "while(1){};" cikluson 			belül,amely futtatáskor a várt 0%-os kihasználtságot eredményezi.
+
+3.)Amely minden magot 100%-osan kihasznál:
+
+		A "vegtelen_a.c" forráskódba beillesztett <omp.h> könyvtár, és az abból előhívott 			#pragma omp parallel a több szálon való futtatást teszi lehetővé, majd az így 			előállított kódot a terminálban a kövezkezőképp fordítottam : "gcc -o 			vegtelen_all.c -fopenmp vegtelen_a.c". 
+		Az így kapott "vegtelen_all.c"-t lefuttatva jön létre az összes magot kihasználó 			process.
+
+

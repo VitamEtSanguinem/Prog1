@@ -1,0 +1,27 @@
+// Brun-tétel R
+
+
+A Brun-tétel az ikerprímeket vizsgálja, valamint ezen ikerprímek reciprokösszegét.
+
+A forráskódunkban először a 'matlab' library-t pillanthatjuk meg, melynek funkciói ezen tétel formalizálását segítik.
+Rögtön a 'matlab' könyvtár "beszúrása" után egy függvény deklarációval találjuk magunkat szemben.
+
+az 'stp' függvényünket a következő sorok építik fel : 
+   
+
+
+    primes = primes(x) 			<-----Itt a primes funkció látható, 'x'-ig írja ki a prímszámokat ('x' egy a funkció által kapott 						      paraméter).
+
+
+
+    diff = primes[2:length(primes)]-primes[1:length(primes)-1]   	 <------ Ebben a sorban 2 vektort láthatunk, melyből az első a 											 korábban felírt "primes" vektor második elemétől kezdődően 											 fogja tartalmazni a prímeket, a második vektorunk a "primes" 											 vektor első elemétől az utolsó előttiig tartalmazza a 											 prímszámokat, mindezek után ezek különbségét vesszük, majd 											 eltároljuk a "diff"-ben.
+
+
+
+    idx = which(diff==2)	<---- Ezen sor a vektorunk azon helyeit fogja meghatározni, ahol a 2 vektor elemeinek különbsége 2 lesz 				      (ikerprím kritérium).
+    t1primes = primes[idx]	<---- Az ikerprímek első tagját tartalmazó vektor.
+    t2primes = primes[idx]+2	<---- Az ikerprímek második tagját tartalmazó vektor.
+    rt1plust2 = 1/t1primes+1/t2primes	<---- Az egyes párok reciprokainak összege.
+    return(sum(rt1plust2))		<---- A részösszegek összege, azaz a ikerprímek reciprokösszege.
+
+Ezek után az eddig leírtak (azaz az 'stp' függvény) plotoltatására, azaz kirajzoltatására kerül sor.

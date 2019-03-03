@@ -1,0 +1,9 @@
+//Monty Hall "probléma" röviden (R)
+
+Egy Monty Hall által vezetett műsorról van szó.
+A játék során a versenyző 3 ajtó közül választ, a 3 ajtóból 1 mögött egy autó áll, 2 mögött pedig "értéktelen" nyeremények.
+Amint a játékos választ a 3 lehetőség közül, amint ez megtörténik, a műsorvezető megmutat egyet a maradék 2 lehetőség közül (természetesen egyet az értéktelenek közül).
+Mindezek után felkínálja a lehetőséget a cserére (a 2 meg nem mutatott nyeremény közül, 1.: a játékos által először választott ajtó, 3.: a meg nem mutatott ajtó [ a 2. mögött értéktelen nyeremény rejlett]).
+A nyerő(bb) stratégia itt a csere.
+Hisz a legelején 1:3 az esély a nagy értékű nyeremény kiválasztására, míg a ki nem választott ajtóknál 2:3, miután a 2 ajtóból az egyik nyereményt megmutatják, így ez a 2:3 érték egy ajtóra sűrűsödik.
+Így a programban látott 10000000 próbálkozásból a döntésüket megváltoztatók ~2/3 -os arányban nyernek a döntésüket meg nem változtatókkal szemben.

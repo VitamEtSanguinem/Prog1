@@ -1,0 +1,19 @@
+//Page Rank C
+
+Működési elv: egy adott honlap pagerank értéke a rá mutató/hivatkozó egyes honlapok függvénye. Egy adott 'A' honlap page rankja például ha egy 'B' honlap hivatkozik rá, illetve egy adott 'C'-re is osztandó a 'B' honlapból kimenő linkek számával.(Hiszen 'B' hivatkozik 'A'-ra és 'C'-re is, viszont 'A' és 'C' ilyen tekintetben függetlenek.)
+Ez a program egyes weboldalak népszerűségét hivatott kiszámolni , melyeket double értékek reprezentálnak.
+A program elején függvénydeklarációkat láthatunk, kiir, tavolsag, pagerank.
+Mit is csinálnak ezek?
+
+kiir : Egy adott tömb 'i'-edig elemeit írja ki, mely a for ciklus miatt a 'db' értékig növekszenek.
+
+
+tavolsag : Ez gyakorlatilag felfogható a matematikában használt "két pont távolságának", a double osszeg, folyamatosan a PR[]^2 - PRv[]^2 -tel növekszik, egészen az 'n' értékig. Mindezek után az egész "osszeg" -ből négyzetgyököt vonunk.
+
+
+pagerank : Paraméterként egy 2 dimenziós mátrixot, egy üres oszlopvektort, illetve egy kiinduló egydimenziós mátrixot, melynek elemei 1/4-es értéket kapnak (a 2 dimenziós T[4][4] miatt)---ezzel történik majd a szorzás---
+
+Ebben a függvényben kerül sor a mátrixművelet elvégzésére.
+Először is egy for ciklussal kinullázzuk az (eredmény) oszlopvektorunk értékeit (ez a későbbiekben lesz fontos, ugyanis több weboldal page rankjának számítását fogjuk végezni, mely során bent maradhatnak értékek), majd az előbb kinullázott értékek helyére egy újabb for ciklussal kiszámoljuk a pagerank értéket a következőképp: egy adott PR[i] értékhez hozzáadjuk  a T[i][j]*PRv[j] szorzatot, majd ezt eltároljuk a PR[i]-ben, vagyis PR[i] felveszi az imént említett szorzat értékét(ez jelen esetben egy 4-gyel való osztást jelent).
+
+

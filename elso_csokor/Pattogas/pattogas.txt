@@ -1,0 +1,14 @@
+// labda pattogás, C
+
+
+
+A labdapattogás nevezetű C program elején, az "include" szekcióban már találhatunk említésre méltó információt, amely nem más, mint a <curses.h> header.
+Ez a header a képernyő használatért illetve az optimalizációért felelős.
+
+A programunk -lncurses kapcsolót igényel a fordításhoz, illetve a futtatáshoz is.
+Futtatáskor a "labdapattogás" nevű program a linux terminálablakában 'O'-kat (ez a labda) ír, majd ha eléri a terminálablak szélét egy adott szögben újra "elindul" , s így tovább.
+
+
+Kicsit részletesebben:
+A program a terminálablakot egy koordináta rendszerként kezeli, ahol a 0, 0 pont a terminálunk bal felső sarka, így hát innen fog indulni az 'O'.
+Egy screen refresh után a forráskódban deklarált xnov, illetve ynov értékével megnöveljük az előbb kiírt 'O' koordinátáit, ezzel "elmozdul", mindez addig folytatódik míg a fentiek szerint el nem éri a terminálablak egy oldalát, ezesetben például ha az xnov-ot tekintjük "xnov = xnov * -1;", a labdánk így lesz "visszafordítva".(természetesen míg nem ütközik ismét terminál ablakunk szélébe)
