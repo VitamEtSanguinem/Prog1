@@ -1,0 +1,457 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Caesar!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title><type>int ***</type> háromszögmátrix</title>
+        <para>
+           
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:   
+#include <stdio.h>
+#include <stdlib.h>
+
+int
+main ()
+{
+    int nr = 5;
+    double **tm;
+    
+    printf("%p\n", &tm);
+    
+    if ((tm = (double **) malloc (nr * sizeof (double *))) == NULL)
+    {
+        return -1;
+    }
+
+    printf("%p\n", tm);
+    
+    for (int i = 0; i < nr; ++i)
+    {
+        if ((tm[i] = (double *) malloc ((i + 1) * sizeof (double))) == NULL)
+        {
+            return -1;
+        }
+
+    }
+
+    printf("%p\n", tm[0]);    
+    
+    for (int i = 0; i < nr; ++i)
+        for (int j = 0; j < i + 1; ++j)
+            tm[i][j] = i * (i + 1) / 2 + j;
+
+    for (int i = 0; i < nr; ++i)
+    {
+        for (int j = 0; j < i + 1; ++j)
+            printf ("%f, ", tm[i][j]);
+        printf ("\n");
+    }
+
+    tm[3][0] = 42.0;
+    (*(tm + 3))[1] = 43.0;	
+    *(tm[3] + 2) = 44.0;
+    *(*(tm + 3) + 3) = 45.0;
+
+    for (int i = 0; i < nr; ++i)
+    {
+        for (int j = 0; j < i + 1; ++j)
+            printf ("%f, ", tm[i][j]);
+        printf ("\n");
+    }
+
+    for (int i = 0; i < nr; ++i)
+        free (tm[i]);
+
+    free (tm);
+
+    return 0;
+}
+            
+        </para>
+        <para>
+         A programunk egy (a fent megnevezett) "háromszögmátrix"-ot hivatott létrehozni.
+         Az int nr a mátrixunk soraiért felelős, jelen esetben a sorok száma 5 lesz.
+         A tm pedig egy double mutató lesz.
+         Az if kifejezésen belül memóriafoglalással találkozunk, mely jelen esetben a a double által lefoglalt 8 byte-ot foglalja le szorozva a az nr értékével.
+         Amennyiben ez a lefoglalandó memóriaterület 0 (NULL) egy return -1 utasítással kilépünk a programból.
+         Tm értékének kiíratása után egy for ciklushoz jutunk, melyben szintén fellelhető egy a memóriafoglalásért felelős if kifejezés.
+         A for ciklusban szereplő ciklusváltozónk (int i=0) szintén szerepel az if-es sorban.
+         Az if-es sorban a tm[i] (azaz a tm i-edik eleme egyenlő)= egy double értékre mutató pointerrel, melynek a következő formulával kerül kiszámításra az értéke:
+         (i+1)*sizeof(double *) azaz i+1-szer vesszük a double pointer méretét (8 byte).
+         Amennyiben ez az érték NULL (0) , a fent leírt return -1 -gyel lépünk ki.
+         A fent leírtak után kiíratásra kerül a tm[0] , majd  a később meghívásra kerülő tm[i][j] megalkotása.
+         Szemmel látható hogy az említett tm[i][j] egy két dimenziós mátrix, melynek elemei az i*(i+1)+j -vel állnak elő..
+         Ez mind rendben van, de a két dimenziós mátrixok inkább négyszögek, mintsem háromszögek.
+         Ezért lesz a formulánk i * (i+1)/2 +j.
+         Következő lépésként tm[i][j] egymás utáni kiíratására kerül sor '\n' karakterekkel elválasztva.
+         
+        </para>            
+    </section>        
+    <section>
+        <title>C EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót C-ben!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:  
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+#define MAX_KULCS 100
+#define BUFFER_MERET 256
+
+
+int
+main (int argc, char **argv)
+{
+
+  char kulcs[MAX_KULCS];
+  char buffer[BUFFER_MERET];
+
+  int kulcs_index = 0;
+  int olvasott_bajtok = 0;
+
+  int kulcs_meret = strlen (argv[1]);
+  strncpy (kulcs, argv[1], MAX_KULCS);
+
+  while ((olvasott_bajtok = read (0, (void *) buffer, BUFFER_MERET)))
+    {
+
+      for (int i = 0; i < olvasott_bajtok; ++i)
+	{
+
+	  buffer[i] = buffer[i] ^ kulcs[kulcs_index];
+	  kulcs_index = (kulcs_index + 1) % kulcs_meret;
+
+	}
+
+      write (1, buffer, olvasott_bajtok);
+
+    }
+}
+              
+        </para>
+        <para>
+            A titkosító programunk a parancssori argumentumok olvasásával kezdi a működést. (argc, **argv)
+            Megadjuk a kulcsunkat, és a buffert.(az #include szekció alatt definiáltak alapján)
+            Ezek után a deklarációk között megtalálható a kulcs_meret nevű változó, mely a 2. parancssori argumentum hosszával lesz egyenlő.
+            Lemásolja a kulcsot, argv[1](2. argumentum)-ot, illetve a MAX_KULCS névre hallgató a kulcs maximális méretét reprezentáló értéket a bufferbe.
+            Ezek után beolvassa bufferben lévő byte-okat, majd a buffer byte-jait össze "XOR"-ozza (logikai kizáró vagy), mindezt elvégezve a kulcs összes byte-ján.
+            Majd a write funkcióval kiíratásra kerül a buffer tartalma, és a beolvasott byte-ok.
+        </para>            
+    </section>        
+    <section>
+        <title>Java EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót Java-ban!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: 
+
+
+public class ExorTitkosító {
+    
+    public ExorTitkosító(String kulcsSzöveg,
+            java.io.InputStream bejövőCsatorna,
+            java.io.OutputStream kimenőCsatorna)
+            throws java.io.IOException {
+        
+        byte [] kulcs = kulcsSzöveg.getBytes();
+        byte [] buffer = new byte[256];
+        int kulcsIndex = 0;
+        int olvasottBájtok = 0;
+
+        while((olvasottBájtok =
+                bejövőCsatorna.read(buffer)) != -1) {
+            
+            for(int i=0; i<olvasottBájtok; ++i) {
+                
+                buffer[i] = (byte)(buffer[i] ^ kulcs[kulcsIndex]);
+                kulcsIndex = (kulcsIndex+1) % kulcs.length;
+                
+            }
+            
+            kimenőCsatorna.write(buffer, 0, olvasottBájtok);
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        try {
+            
+            new ExorTitkosító(args[0], System.in, System.out);
+            
+        } catch(java.io.IOException e) {
+            
+            e.printStackTrace();
+            
+        }
+        
+    }
+    
+}              
+        </para>
+        <para>
+            Tutor : Nagy Viktor
+        </para>            
+    </section>        
+    <section>
+        <title>C EXOR törő</title>
+        <para>
+            Írj egy olyan C programot, amely megtöri az első feladatban előállított titkos szövegeket!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:   
+#define MAX_TITKOS 4096
+#define OLVASAS_BUFFER 256
+#define KULCS_MERET 8
+#define _GNU_SOURCE
+
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+double
+atlagos_szohossz (const char *titkos, int titkos_meret)
+{
+  int sz = 0;
+  for (int i = 0; i < titkos_meret; ++i)
+    if (titkos[i] == ' ')
+      ++sz;
+
+  return (double) titkos_meret / sz;
+}
+
+int
+tiszta_lehet (const char *titkos, int titkos_meret)
+{
+  // a tiszta szoveg valszeg tartalmazza a gyakori magyar szavakat
+  // illetve az átlagos szóhossz vizsgálatával csökkentjük a
+  // potenciális töréseket
+
+  double szohossz = atlagos_szohossz (titkos, titkos_meret);
+
+  return szohossz > 6.0 && szohossz < 9.0
+    && strcasestr (titkos, "hogy") && strcasestr (titkos, "nem")
+    && strcasestr (titkos, "az") && strcasestr (titkos, "ha");
+
+}
+
+void
+exor (const char kulcs[], int kulcs_meret, char titkos[], int titkos_meret)
+{
+
+  int kulcs_index = 0;
+
+  for (int i = 0; i < titkos_meret; ++i)
+    {
+
+      titkos[i] = titkos[i] ^ kulcs[kulcs_index];
+      kulcs_index = (kulcs_index + 1) % kulcs_meret;
+
+    }
+
+}
+
+int
+exor_tores (const char kulcs[], int kulcs_meret, char titkos[],
+	    int titkos_meret)
+{
+
+  exor (kulcs, kulcs_meret, titkos, titkos_meret);
+
+  return tiszta_lehet (titkos, titkos_meret);
+
+}
+
+int
+main (void)
+{
+
+  char kulcs[KULCS_MERET];
+  char titkos[MAX_TITKOS];
+  char *p = titkos;
+  int olvasott_bajtok;
+
+  // titkos fajt berantasa
+  while ((olvasott_bajtok =
+	  read (0, (void *) p,
+		(p - titkos + OLVASAS_BUFFER <
+		 MAX_TITKOS) ? OLVASAS_BUFFER : titkos + MAX_TITKOS - p)))
+    p += olvasott_bajtok;
+
+  // maradek hely nullazasa a titkos bufferben  
+  for (int i = 0; i < MAX_TITKOS - (p - titkos); ++i)
+    titkos[p - titkos + i] = '\0';
+
+  // osszes kulcs eloallitasa
+  for (int ii = '0'; ii <= '9'; ++ii)
+    for (int ji = '0'; ji <= '9'; ++ji)
+      for (int ki = '0'; ki <= '9'; ++ki)
+	for (int li = '0'; li <= '9'; ++li)
+	  for (int mi = '0'; mi <= '9'; ++mi)
+	    for (int ni = '0'; ni <= '9'; ++ni)
+	      for (int oi = '0'; oi <= '9'; ++oi)
+		for (int pi = '0'; pi <= '9'; ++pi)
+		  {
+		    kulcs[0] = ii;
+		    kulcs[1] = ji;
+		    kulcs[2] = ki;
+		    kulcs[3] = li;
+		    kulcs[4] = mi;
+		    kulcs[5] = ni;
+		    kulcs[6] = oi;
+		    kulcs[7] = pi;
+
+		    if (exor_tores (kulcs, KULCS_MERET, titkos, p - titkos))
+		      printf
+			("Kulcs: [%c%c%c%c%c%c%c%c]\nTiszta szoveg: [%s]\n",
+			 ii, ji, ki, li, mi, ni, oi, pi, titkos);
+
+		    // ujra EXOR-ozunk, igy nem kell egy masodik buffer  
+		    exor (kulcs, KULCS_MERET, titkos, p - titkos);
+		  }
+
+  return 0;
+}
+             
+        </para>
+        <para>
+            A programunk #include része után függvénydeklarációkkal találjuk szemben magunkat.
+            Az "atlagos_szohossz" meglehetősen egyszerű, a titkos szó méretét elosztja az olvasott szóközök számával, így megkapjuk az átlagos szóhosszt.
+            tiszta_lehet (pontos megértés szükséges)
+            Az exor már ismerős lehet a titkosító kapcsán..
+            A mainben a *p pointert léptetjük egy max. értékig , egyenlővé tesszük önmaga és az olvasott byte-ok összegével (folyamatosan növeljük az olvasott byte-okkal).
+            Ezek után egy "bruteforce" mechanizmus fut le, amely az összes lehetséges kulcskombinációt előállítja, majd a megfelelő kombinációt kiírja, a tiszta szöveggel együtt.
+
+        </para>            
+    </section>        
+    <section>
+        <title>Neurális OR, AND és EXOR kapu</title>
+        <para>
+            R
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/Koyw6IH5ScQ">https://youtu.be/Koyw6IH5ScQ</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/NN_R">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/NN_R</link>          
+                
+#   Copyright (C) 2019  Dr. Norbert Bátfai, nbatfai@gmail.com
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>
+#
+# https://youtu.be/Koyw6IH5ScQ
+
+library(neuralnet)
+
+a1    <- c(0,1,0,1)
+a2    <- c(0,0,1,1)
+OR    <- c(0,1,1,1)
+
+or.data <- data.frame(a1, a2, OR)
+
+nn.or <- neuralnet(OR~a1+a2, or.data, hidden=0, linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.or)
+
+compute(nn.or, or.data[,1:2])
+
+
+a1    <- c(0,1,0,1)
+a2    <- c(0,0,1,1)
+OR    <- c(0,1,1,1)
+AND   <- c(0,0,0,1)
+
+orand.data <- data.frame(a1, a2, OR, AND)
+
+nn.orand <- neuralnet(OR+AND~a1+a2, orand.data, hidden=0, linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.orand)
+
+compute(nn.orand, orand.data[,1:2])
+
+
+
+a1      <- c(0,1,0,1)
+a2      <- c(0,0,1,1)
+EXOR    <- c(0,1,1,0)
+
+exor.data <- data.frame(a1, a2, EXOR)
+
+nn.exor <- neuralnet(EXOR~a1+a2, exor.data, hidden=0, linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.exor)
+
+compute(nn.exor, exor.data[,1:2])
+
+
+
+a1      <- c(0,1,0,1)
+a2      <- c(0,0,1,1)
+EXOR    <- c(0,1,1,0)
+
+exor.data <- data.frame(a1, a2, EXOR)
+
+nn.exor <- neuralnet(EXOR~a1+a2, exor.data, hidden=c(6, 4, 6), linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.exor)
+
+compute(nn.exor, exor.data[,1:2])
+
+        </para>
+        <para>
+            Az R programunk gyakorlatilag szimpla logikai műveletek elvégzésére tanítja a számítógépet neurális háló segítségével.
+            Minden esetben megadunk egy mintát, ami alapján a számítógép egy adott súlyt ad a feldolgozandó információnak, majd a műveletek elvégzése után a végeredmény értékét adja tovább.
+            Ezek az értékek csak közelítőek lesznek. (pl.: egy igaz érték tekintetében 0.9998 érték, vagy hamis érték esetén 0,01-et kapunk)
+        </para>            
+    </section>        
+    <section>
+        <title>Hiba-visszaterjesztéses perceptron</title>
+        <para>
+            C++
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+    </section>        
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
