@@ -1,0 +1,32 @@
+1.)
+
+Az ember folyton modellekben gondolkodik, fõleg problémák megoldása esetében.
+Ezt rávetíthetjük a programozásra is, hisz itt is folyton problémákkal kell szembenéznünk, melyek megoldását nagyban elõsegíti egy elõre felállított modell, mûködési elv.
+
+A számítógép processzora egy elõre meghatározott nyelvet "ismer", viszont több magas szintû programozási nyelv létezik, ezért az ezen nyelveken írt programokat le kell fordítanunk, erre szolgálnak segítségül a fordító porgramok (gcc, g++ ...stb.)
+Ezek a fordítóporgramok lexerrel avagy lexikális elemlzõvel felszereltek, melyek a lefordítandó programkódot hivatottak ellenõrizni.
+Illetve a fellépõ hibákat (legyen az szintaktikai, vagy más egyéb) a felhasználó/programozó felé jelezni.
+
+A programnyelveket osztályokba sorolhatjuk , miszerint léteznek :
+
+ - Imperatív nyelvek : algoritmikus nyelv, utasítások sorozata
+ - Deklaratív nyelvek: pl.: logikai nyelvek
+ - Más nyelvek	     : ide azokat soroljuk, melyek egy imperatív tényezõt/tulajdonságot tagadnak
+
+2.)
+
+Minden programkód, karakterekbõl áll elõ, ezek egy adott karakterkészletbõl érhetõek el, minden nyelv definiálja a sajátját. (betûk , számjegyek, stb..)
+Ily módon épülnek fel a lexikális -, a szintaktikai -, a program -, a fordítási egységek, az utasítások, illetve maga a program.
+A programkódon belüli lexikális egységek, melyeket a fordítóprogram tokenizál a következõek : Többkarakteres szimbólum, szimbolikus név, címke, megjegyzés, literál.
+
+A szimbolikus neveken belül találkozhatunk az azonosítóval, melynek kötelezõen betûvel kell kezdõdnie, majd betûvel vagy számmal folytatódnia.
+Programozói eszközök megnevezésére szolgál, majd a késõbbiekben az ezekre való hivatkozást is megkönnyíti.
+Találkozhatunk még a programnyelvekben kulcsszavakkal, melyeknek az adott nyelv tulajdonít jelentést, tehát azonosítói szempontból kötöttek.
+Általában utasítások elnevezései.
+Léteznek még standard azonosítók, melyeknek szintén az adott programnyelv tualjdonít jelentést a kulcsszavakhoz hasonló módon, ezt a programozó átnevezheti, átértelmezheti (C-ben ilyen például a NULL).
+
+
+A programkódok egy hasznos egységét képezik a megjegyzések, kommentek.
+Ezek segítik a programozónak egy adott szegmens mûkõdési elvének leírását, ha esetleg hosszabb a kód és a késõbbiekben vissza kell térni rá, de már a programozó nem teljesen emlékszik rá.
+Problémák feljegyzése adott szegmensekkel kapcsolatban.
+A kommentek szinte bármilyen nagyságúak lehetnek, nem befolyásolják a program mûködését.
