@@ -1,0 +1,24 @@
+Az eljárásorientált programnyelvekben a szöveg többé-kevésbé szuverén, így tagolható, úgynevezett programegységekre.
+
+Bizonyos nyelvekben a program fizikailag önálló részekbõl áll, így ezen programrészeket külön fordítjuk.
+Ezzel szemben más nyelvekben a programot egy egységként kell kezelni, fordítani, így annak szövege mélységben struktúrálható(fizikailag nem független részek).
+Illetve létezik a fent említett két variáció keveréke is, ahol a programrészek fizikailag függetlenek, ám tetszõlegesen struktúrálhatók.
+
+Az eljárásorientált nyelvekbe négy programegységet sorolunk, melyek az alprogram, a blokk, a csomag, és a task.
+
+Az alprogram:
+	Bemeneti adatcsoportot képez le egy kimeneti adatcsoportra.
+	Az újrafelhasználás eszköze. Egy programban többször elõforduló alprogramot elég egyszer megírnunk, s a késõbbiek folyamán csak hivatkozni arra,
+	figyeljünk arra is, hogy ne legyen feladatspecifikus, azaz egy általánosabb, univerzálisabb formát adjunk neki, hogy a késõbbiek folyamán egy-egy paraméter segítségével az adott feladat megoldására tudjuk azt formálni.
+	Az itt deklarált programozási eszközök az alprogram lokális eszközei, ezzel szemben az alprogramon kívül deklarált, de abban felhasznált eszközök a programunk globális eszközei.
+	
+
+
+Egy programegység, szegmens, meghívhat másik programegységet, majd az is meghívhat egy másikat, s így tovább.
+Ez a jelenség a hívási lánc, melynek elsõ tagja mindig a fõprogram. A hívási lánc minden tagja aktív, de a legutoljára meghívott programrész fejezi be elõször a mûködést, ezt követõen, a vezérlés az õt meghívó programrészhez kerül.
+Rekurziónak nevezzük azt a jelenséget, amikor egy aktív alprogramot hívunk meg.
+A rekurziónak két fajtája létezik a közvetlen és a közvetett.
+A közvetlen rekurzió esetében az alprogram önmagát hívja meg.
+A közvetett rekutzió esetében pedig egy a hívási láncban már egy korábban szereplõ programot hívunk meg.
+
+	
