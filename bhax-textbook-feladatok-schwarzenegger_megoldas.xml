@@ -1,0 +1,63 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Schwarzenegger!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Szoftmax Py MNIST</title>
+        <para>
+            Python
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:     <link xlink:href="https://github.com/tensorflow/tensorflow/releases/tag/v0.9.0">https://github.com/tensorflow/tensorflow/releases/tag/v0.9.0</link> (/tensorflow-0.9.0/tensorflow/examples/tutorials/mnist/), <link xlink:href="https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow-bol">https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow-bol</link>           
+        </para>
+        <para>
+            Egy szoftver készít egy koordináta rendszert, amelyekbe 0-9-ig dot-okat generál, ezt kimenti egy png fájlba.
+            Az így kapott png-ket a tensoros programunk kielemzi és eldönti hogy az adott képfájlon hány dot van.(közelítőleg 60%-os pontossággal)
+        </para>
+    
+
+    <section>
+        <title>Mély MNIST</title>
+        <para>
+            Python            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+    </section>        
+
+                  
+    <section>
+        <title>Minecraft-MALMÖ</title>
+        <para>
+        </para>
+        <para>
+            
+        </para>
+        <para>
+            Megoldás forrása(i):      <link xlink:href="https://bhaxor.blog.hu/9999/12/31/minecraft_steve_szemuvege">https://bhaxor.blog.hu/9999/12/31/minecraft_steve_szemuvege</link>           
+                                      <link xlink:href="https://bhaxor.blog.hu/2018/11/29/eddig_csaltunk_de_innentol_mi">https://bhaxor.blog.hu/2018/11/29/eddig_csaltunk_de_innentol_mi</link>
+        </para>
+        <para>
+           A malmö-s megoldásban Steve-et egy 3x3-as blokk közepére helyezték, így csak a körülötte lévő blokkokat észlelte, így próbált utat találni, de számos esetben elakadt.
+           A linkekek közül a második egy folyamatos képkészítéses megoldás, mely a mozgás valamennyi frame-jét rögzítette, majd ezt elemezve tette meg a következő lépést,
+           ám ez sem bizonyult jónak, hisz ebben az esetben sem volt képes Steve az "útvesztő" végére érni.
+           Az első linken található M.I. viszont már nagy előrelépés az előző kettővel szemben, itt Steve-et egy 3x3x3-as kocka közepére helyezték, így nagyobb területet tud analizálni az M.I.
+           (Véleményem szerint ebben az esetben az objektumok "scan"-elését követően Steve a levegő blokkok irányába kezdi meg útját, elakadás esetén pedig körbefordulással ellenőrzi a 3x3x3-as környezetet, majd ismételten a levegő blokkok irányába kezdi meg útját)
+           
+        </para>
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</chapter>                
